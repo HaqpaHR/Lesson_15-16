@@ -6,12 +6,13 @@ class MilitaryResource {
  };
   
  isReadyToMove() {
-   return this.distance >= 100;
+   return this.distance > 0;
  };
 
  isReadyToFight() {
-     return this.health >= 100;
+     return this.health > 0;
  };
+ 
  restore() {
      this.health = this.maxHealth;
      this.distance = this.maxDistance;
@@ -21,5 +22,6 @@ class MilitaryResource {
      return new MilitaryResource()
  };
 };
+
 
 module.exports = MilitaryResource;

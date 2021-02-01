@@ -6,12 +6,13 @@ class MilitaryResource {
  };
   
  isReadyToMove() {
-   return this.distance >= 100;
+   return this.distance > 0;
  };
 
  isReadyToFight() {
-     return this.health >= 100;
+     return this.health > 0;
  };
+ 
  restore() {
      this.health = this.maxHealth;
      this.distance = this.maxDistance;
@@ -36,29 +37,21 @@ class MilitaryResource {
  };
  
  isReadyToMove() {
-        let result = true;
-        this.squad.forEach((move) => result = (!move.isReadyToMove() ? false : result) );
-        return result;
+    return this.squad.every((move) => move.isReadyToMove());
   };
+
   isReadyToFight(){
-    let result = true;
-    this.squad.forEach((move) => result = (!move.isReadyToMove() ? false : result) );
-    return result;
+    return this.squad.every((health) => health.isReadyToFight());
   };
+
   getReadyToMoveResources() {
-    let result = [];
-    for(let i = 0; i < this.squad.length; i++) { 
-       if(this.squad[i].isReadyToMove() && this.squad[i].isReadyToFight())
-       result.push(this.squad[i]);
-    }
-    return result;
-  }
+    return this.squad.filter((element) => element.isReadyToMove() && element.isReadyToFight());
+  };
+
   clone() {
       return new Squad();
   }
  };
-
-
 
  
  let tanks = new MilitaryResource('tanks', 1000, 400);
